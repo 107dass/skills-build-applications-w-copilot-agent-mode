@@ -8,6 +8,10 @@ import workoutsRouter from './routes/workouts.js';
 
 const app = express();
 const port = Number(process.env.PORT) || 8000;
+
+// Configure API base URL for both Codespaces and localhost environments
+// When running in GitHub Codespaces, use the Codespace-specific URL format
+// Otherwise, fall back to localhost for local development
 const codespaceName = process.env.CODESPACE_NAME;
 const baseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
