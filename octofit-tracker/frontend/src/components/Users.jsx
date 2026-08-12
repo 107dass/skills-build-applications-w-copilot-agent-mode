@@ -1,27 +1,20 @@
+/**
+ * Users Component
+ * Endpoint: https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/users
+ */
 import React, { useState, useEffect } from 'react';
 import { fetchFromApi } from '../api/api';
 
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  team?: {
-    _id: string;
-    name: string;
-  };
-  joinedAt: string;
-}
-
-export const Users: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+export const Users = () => {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadUsers = async () => {
       try {
         setLoading(true);
-        const data = await fetchFromApi<User>('/users');
+        const data = await fetchFromApi('/users');
         setUsers(data);
         setError(null);
       } catch (err) {

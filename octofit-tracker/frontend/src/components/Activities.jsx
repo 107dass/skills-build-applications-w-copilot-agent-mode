@@ -1,30 +1,20 @@
+/**
+ * Activities Component
+ * Endpoint: https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities
+ */
 import React, { useState, useEffect } from 'react';
 import { fetchFromApi } from '../api/api';
 
-interface ActivityUser {
-  _id: string;
-  name: string;
-}
-
-interface Activity {
-  _id: string;
-  type: string;
-  durationMinutes: number;
-  caloriesBurned: number;
-  date: string;
-  user: ActivityUser;
-}
-
-export const Activities: React.FC = () => {
-  const [activities, setActivities] = useState<Activity[]>([]);
+export const Activities = () => {
+  const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadActivities = async () => {
       try {
         setLoading(true);
-        const data = await fetchFromApi<Activity>('/activities');
+        const data = await fetchFromApi('/activities');
         setActivities(data);
         setError(null);
       } catch (err) {

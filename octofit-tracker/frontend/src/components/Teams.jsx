@@ -1,30 +1,20 @@
+/**
+ * Teams Component
+ * Endpoint: https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams
+ */
 import React, { useState, useEffect } from 'react';
 import { fetchFromApi } from '../api/api';
 
-interface TeamMember {
-  _id: string;
-  name: string;
-  email: string;
-}
-
-interface Team {
-  _id: string;
-  name: string;
-  description?: string;
-  members: TeamMember[];
-  createdAt: string;
-}
-
-export const Teams: React.FC = () => {
-  const [teams, setTeams] = useState<Team[]>([]);
+export const Teams = () => {
+  const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadTeams = async () => {
       try {
         setLoading(true);
-        const data = await fetchFromApi<Team>('/teams');
+        const data = await fetchFromApi('/teams');
         setTeams(data);
         setError(null);
       } catch (err) {

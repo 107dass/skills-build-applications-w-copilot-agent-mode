@@ -10,7 +10,7 @@
  *   VITE_CODESPACE_NAME=my-codespace-name
  */
 
-const getApiBaseUrl = (): string => {
+const getApiBaseUrl = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
 
   if (codespaceName && codespaceName !== 'undefined') {
@@ -22,16 +22,11 @@ const getApiBaseUrl = (): string => {
 
 export const API_BASE_URL = getApiBaseUrl();
 
-export interface ApiResponse<T> {
-  data: T[];
-  _embedded?: { [key: string]: T[] };
-}
-
 /**
  * Fetch data from the API endpoint.
  * Handles both array responses and paginated responses.
  */
-export const fetchFromApi = async <T>(endpoint: string): Promise<T[]> => {
+export const fetchFromApi = async (endpoint: string) => {
   try {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url);

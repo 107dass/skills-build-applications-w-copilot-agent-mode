@@ -1,30 +1,20 @@
+/**
+ * Leaderboard Component
+ * Endpoint: https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard
+ */
 import React, { useState, useEffect } from 'react';
 import { fetchFromApi } from '../api/api';
 
-interface LeaderboardUser {
-  _id: string;
-  name: string;
-  email: string;
-}
-
-interface LeaderboardEntry {
-  _id: string;
-  user: LeaderboardUser;
-  score: number;
-  rank: number;
-  updatedAt: string;
-}
-
-export const Leaderboard: React.FC = () => {
-  const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+export const Leaderboard = () => {
+  const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadLeaderboard = async () => {
       try {
         setLoading(true);
-        const data = await fetchFromApi<LeaderboardEntry>('/leaderboard');
+        const data = await fetchFromApi('/leaderboard');
         // Sort by rank to ensure correct display
         const sorted = data.sort((a, b) => a.rank - b.rank);
         setEntries(sorted);

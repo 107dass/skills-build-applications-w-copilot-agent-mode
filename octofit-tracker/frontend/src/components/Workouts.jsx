@@ -1,16 +1,11 @@
+/**
+ * Workouts Component
+ * Endpoint: https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts
+ */
 import React, { useState, useEffect } from 'react';
 import { fetchFromApi } from '../api/api';
 
-interface Workout {
-  _id: string;
-  title: string;
-  description?: string;
-  durationMinutes: number;
-  difficulty: 'easy' | 'medium' | 'hard';
-  createdAt: string;
-}
-
-const getDifficultyBadgeClass = (difficulty: string): string => {
+const getDifficultyBadgeClass = (difficulty) => {
   switch (difficulty) {
     case 'easy':
       return 'badge bg-success';
@@ -23,16 +18,16 @@ const getDifficultyBadgeClass = (difficulty: string): string => {
   }
 };
 
-export const Workouts: React.FC = () => {
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
+export const Workouts = () => {
+  const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadWorkouts = async () => {
       try {
         setLoading(true);
-        const data = await fetchFromApi<Workout>('/workouts');
+        const data = await fetchFromApi('/workouts');
         setWorkouts(data);
         setError(null);
       } catch (err) {
